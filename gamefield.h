@@ -4,12 +4,6 @@
 
 using ui = unsigned int;
 
-struct Cell
-{
-	Cell() : alive(false) {}
-	bool alive;
-};
-
 class GameField
 {
 public:

@@ -1,7 +1,5 @@
 #include "gamefield.h"
 #include <random>
-#include <future>
-#include <omp.h>
 
 GameField::GameField(ui width, ui height) : 
 	_width(width), _height(height)
@@ -11,12 +9,9 @@ GameField::GameField(ui width, ui height) :
 
 void GameField::nextGeneration()
 {
-	std::vector<std::future<void>> pool;
 	auto newgen = _field;
 	for (ui j = 0; j < _height; ++j)
 	{
-		//pool.push_back(std::async([&]() 
-			//{
 			for (ui i = 0; i < _width; ++i)
 			{
 				if (_field[j][i])
@@ -30,10 +25,7 @@ void GameField::nextGeneration()
 						newgen[j][i] = true;
 				}
 			}
-			/*}));*/
 	}
-	for (auto& fut : pool) 
-		fut.wait();
 	_field = newgen;
 }
 
