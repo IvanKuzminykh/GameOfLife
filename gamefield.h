@@ -12,7 +12,6 @@ public:
 	ui aliveNeighboursCount(ui x, ui y);
 	void randomInitialization();
 	void drawOnRenderTarget(sf::RenderTarget& rt);
-	const sf::VertexArray getVertexArray() const;
 private:
 	std::vector<std::vector<bool>> _field;
 	ui _width;

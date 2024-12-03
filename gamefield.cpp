@@ -12,19 +12,19 @@ void GameField::nextGeneration()
 	auto newgen = _field;
 	for (ui j = 0; j < _height; ++j)
 	{
-			for (ui i = 0; i < _width; ++i)
+		for (ui i = 0; i < _width; ++i)
+		{
+			if (_field[j][i])
 			{
-				if (_field[j][i])
-				{
-					if (aliveNeighboursCount(i, j) < 2 || aliveNeighboursCount(i, j) > 3)
-						newgen[j][i] = false;
-				}
-				else
-				{
-					if (aliveNeighboursCount(i, j) == 3)
-						newgen[j][i] = true;
-				}
+				if (aliveNeighboursCount(i, j) < 2 || aliveNeighboursCount(i, j) > 3)
+					newgen[j][i] = false;
 			}
+			else
+			{
+				if (aliveNeighboursCount(i, j) == 3)
+					newgen[j][i] = true;
+			}
+		}
 	}
 	_field = newgen;
 }
@@ -72,22 +72,4 @@ void GameField::drawOnRenderTarget(sf::RenderTarget& rt)
 			rt.draw(cell);
 		}
 	}
-}
-
-const sf::VertexArray GameField::getVertexArray() const
-{
-	auto vertex_array = sf::VertexArray();
-	{
-		for (ui j = 0; j < _height; ++j)
-		{
-			for (ui i = 0; i < _width; ++i)
-			{
-				if (_field[j][i])
-					vertex_array.append(sf::Vertex(sf::Vector2f(i, j), sf::Color(sf::Color::White)));
-				else
-					vertex_array.append(sf::Vertex(sf::Vector2f(i, j), sf::Color(sf::Color::Black)));
-			}
-		}
-	}
-	return vertex_array;
 }
